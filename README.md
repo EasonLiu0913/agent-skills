@@ -1,133 +1,82 @@
-# Agent Skills
+# Agent Skills & Workflows
 
-A collection of skills for AI coding agents. Skills are packaged instructions and scripts that extend agent capabilities.
+A centralized collection of **Skills**, **Workflows**, and **Rules** for AI coding agents. This repository is designed to be your **Master Source** for all AI capabilities.
 
-Skills follow the [Agent Skills](https://agentskills.io/) format.
+## Architecture
 
-## Available Skills
+This repository uses a standardized `.agent` directory structure:
 
-### react-best-practices
-
-React and Next.js performance optimization guidelines from Vercel Engineering. Contains 40+ rules across 8 categories, prioritized by impact.
-
-**Use when:**
-- Writing new React components or Next.js pages
-- Implementing data fetching (client or server-side)
-- Reviewing code for performance issues
-- Optimizing bundle size or load times
-
-**Categories covered:**
-- Eliminating waterfalls (Critical)
-- Bundle size optimization (Critical)
-- Server-side performance (High)
-- Client-side data fetching (Medium-High)
-- Re-render optimization (Medium)
-- Rendering performance (Medium)
-- JavaScript micro-optimizations (Low-Medium)
-
-### web-design-guidelines
-
-Review UI code for compliance with web interface best practices. Audits your code for 100+ rules covering accessibility, performance, and UX.
-
-**Use when:**
-- "Review my UI"
-- "Check accessibility"
-- "Audit design"
-- "Review UX"
-- "Check my site against best practices"
-
-**Categories covered:**
-- Accessibility (aria-labels, semantic HTML, keyboard handlers)
-- Focus States (visible focus, focus-visible patterns)
-- Forms (autocomplete, validation, error handling)
-- Animation (prefers-reduced-motion, compositor-friendly transforms)
-- Typography (curly quotes, ellipsis, tabular-nums)
-- Images (dimensions, lazy loading, alt text)
-- Performance (virtualization, layout thrashing, preconnect)
-- Navigation & State (URL reflects state, deep-linking)
-- Dark Mode & Theming (color-scheme, theme-color meta)
-- Touch & Interaction (touch-action, tap-highlight)
-- Locale & i18n (Intl.DateTimeFormat, Intl.NumberFormat)
-
-### vercel-deploy-claimable
-
-Deploy applications and websites to Vercel instantly. Designed for use with claude.ai and Claude Desktop to enable deployments directly from conversations. Deployments are "claimable" - users can transfer ownership to their own Vercel account.
-
-**Use when:**
-- "Deploy my app"
-- "Deploy this to production"
-- "Push this live"
-- "Deploy and give me the link"
-
-**Features:**
-- Auto-detects 40+ frameworks from `package.json`
-- Returns preview URL (live site) and claim URL (transfer ownership)
-- Handles static HTML projects automatically
-- Excludes `node_modules` and `.git` from uploads
-
-**How it works:**
-1. Packages your project into a tarball
-2. Detects framework (Next.js, Vite, Astro, etc.)
-3. Uploads to deployment service
-4. Returns preview URL and claim URL
-
-**Output:**
-```
-Deployment successful!
-
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
+```text
+agent-skills/
+├── .agent/
+│   ├── skills/       # Packaged capabilities (e.g., Security Scan, React Best Practices)
+│   ├── workflows/    # Standard operating procedures (e.g., "Brainstorm", "Review")
+│   └── rules/        # Global rules for your agents
+├── deploy-skills.sh  # Script to sync to Agents or Projects
+└── sync-common.sh    # Script for internal shared resource management
 ```
 
-## Installation
+## Setup & Deployment
 
+You can use this repository in two ways:
+
+### 1. Central Hub for Agents (Local)
+Keep all your agents (Claude, Cursor, Windsurf, etc.) in sync with the latest skills.
+
+**Installation**:
 ```bash
-npx add-skill vercel-labs/agent-skills
-```
+# 1. Clone this repository
+git clone https://github.com/EasonLiu0913/agent-skills.git
+cd agent-skills
 
-## Usage
-
-Skills are automatically available once installed. The agent will use them when relevant tasks are detected.
-
-**Examples:**
-```
-Deploy my app
-```
-```
-Review this React component for performance issues
-```
-```
-Help me optimize this Next.js page
-```
-
-## Skill Structure
-
-Each skill contains:
-- `SKILL.md` - Instructions for the agent
-- `scripts/` - Helper scripts for automation (optional)
-- `references/` - Supporting documentation (optional)
-
-## Sync & Deployment
-
-You can sync these skills to your AI Agents (Claude, Cursor, etc.) or other projects using the included `deploy-skills.sh` script.
-
-### 1. Sync to Agents (Local)
-Run this command to update all your local AI agents (Claude, Cursor, etc.) with the latest skills:
-
-```bash
+# 2. Deploy to all your local agents
 ./deploy-skills.sh
 ```
 
-### 2. Sync to Another Project
-If you want to use these skills (and workflows) in another project, run:
+**What happens?**
+The script creates symbolic links from this repo to your agents' configuration directories. Any change you make here is immediately reflected in all agents.
 
+### 2. Project Integration (Project Mode)
+Inject your skills and workflows into a specific project to give it "Superpowers".
+
+**Usage**:
 ```bash
-# From your other project's directory:
+# Go to your target project directory
+cd ~/Documents/MyNewProject
+
+# Run the deployment script pointing to current directory (.)
 ~/Documents/PROJECTS/agent-skills/deploy-skills.sh .
 ```
-*(Replace `/path/to/agent-skills` with the actual path to this repository)*
 
-This will link the entire `.agent` folder (Skills + Workflows + Rules) to your project.
+**What happens?**
+The script links the entire `.agent` folder to your project. Your project now has access to:
+- **Workflows**: Run `/superpowers-brainstorm` or `/superpowers-review` directly.
+- **Rules**: Project-specific rules are applied.
+- **Skills**: All skills are available for use.
+
+## Available Capabilities
+
+### 🛠️ Workflows
+Common procedures to standardize your AI interaction:
+- **/superpowers-brainstorm**: Structural analysis of problems (Goal/Constraints/Options).
+- **/superpowers-plan**: Generate step-by-step implementation plans.
+- **/superpowers-execute-plan**: Execute plans with verification steps.
+- **/superpowers-review**: Comprehensive code review before commit.
+
+### 🧩 Skills
+- **react-best-practices**: Vercel's performance and optimization guidelines.
+- **nextjs-security-scan**: Vulnerability scanner for Next.js apps.
+- **web-design-guidelines**: UI/UX audit tool.
+- **claude.ai**: Integration tools for Claude.
+
+### 📝 Rules
+- **superpowers.md**: Core rules for AI behavior (Plan Gate, TDD, etc.).
+
+## Contribution
+
+1. Create a new skill in `.agent/skills/<skill-name>`.
+2. If sharing code, put it in `.agent/skills/_common` and use `sync-common.sh` to link it.
+3. Run `./deploy-skills.sh` to update your agents.
 
 ## License
 
