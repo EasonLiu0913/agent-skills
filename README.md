@@ -107,6 +107,28 @@ Each skill contains:
 - `scripts/` - Helper scripts for automation (optional)
 - `references/` - Supporting documentation (optional)
 
+## Sync & Deployment
+
+You can sync these skills to your AI Agents (Claude, Cursor, etc.) or other projects using the included `deploy-skills.sh` script.
+
+### 1. Sync to Agents (Local)
+Run this command to update all your local AI agents (Claude, Cursor, etc.) with the latest skills:
+
+```bash
+./deploy-skills.sh
+```
+
+### 2. Sync to Another Project
+If you want to use these skills (and workflows) in another project, run:
+
+```bash
+# From your other project's directory:
+~/Documents/PROJECTS/agent-skills/deploy-skills.sh .
+```
+*(Replace `/path/to/agent-skills` with the actual path to this repository)*
+
+This will link the entire `.agent` folder (Skills + Workflows + Rules) to your project.
+
 ## License
 
 MIT
