@@ -72,6 +72,8 @@ Reference these guidelines when:
 - `rerender-derived-state` - Subscribe to derived booleans, not raw values
 - `rerender-functional-setstate` - Use functional setState for stable callbacks
 - `rerender-lazy-state-init` - Pass function to useState for expensive values
+- `rerender-no-effect-init` - **[NEW]** Avoid setState in useEffect for initialization (cascading renders)
+- `rerender-context-value-memo` - **[NEW]** Memoize Context Provider value to prevent unnecessary re-renders
 - `rerender-transitions` - Use startTransition for non-urgent updates
 
 ### 6. Rendering Performance (MEDIUM)
